@@ -22,7 +22,36 @@ public class LabNine {
 	 */
     
     public static List<List<String>> groupStrings(String[] strings) {
-        return null;
+
+        List<List<String>> result = new ArrayList<>();
+
+        HashMap<String, List<String>> answer = new HashMap<>();
+
+        for (String str : strings) {
+            String comparing = "";
+
+            int distance = str.charAt(0) - 'a';
+
+            for (int i = 0; i < str.length(); i++) {
+                char letter = str.charAt(i);
+                char offset = (char) (letter - distance);
+                if (offset < 'a') {
+                    offset = (char) (offset + 26);
+                }
+                comparing += offset;
+            }
+
+            if (answer.containsKey(comparing)) {
+                answer.get(comparing).add(str);
+            } else {
+                List<String> list = new ArrayList<>();
+                list.add(str);
+                answer.put(comparing, list);
+            }
+        }
+
+        result.addAll(answer.values());
+        return result;
     }
 
 }
